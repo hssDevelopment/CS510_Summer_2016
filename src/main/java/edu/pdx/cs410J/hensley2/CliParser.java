@@ -149,7 +149,7 @@ public class CliParser {
     /**
      * Validate that command line arguments aren't empty. Will throw a
      *
-     * @Link{IllegalArgumentException} if the command line arguments are empty.
+     * {@link IllegalArgumentException} if the command line arguments are empty.
      */
     public void validateNonNullArgs() {
         if (cliArgs == null || cliArgs.size() == 0) {
