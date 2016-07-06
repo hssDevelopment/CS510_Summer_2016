@@ -10,11 +10,12 @@ public class Project1Constants {
     private Project1Constants(){}
 
     public static final String README =
-            "usage: java edu.pdx.cs410J.hensley2.Project1 [options] <args>\n" +
+            "usage: java -jar apptbook-<version>.jar [options] <args>\n" +
                     "args are (in this order):\n" +
                     "owner: The person whose owns the appt book - use double quotes to include first name and last name\n" +
                     "example: \"Jeff Smith\"\n"+
-                    "description: A description of the appointment - use double quotes for multi word description\n" +
+                    "description: A description of the appointment - use double quotes for multi word description.\n" +
+                    "*Note* Description Cannot be empty!\n" +
                     "example: \"This is a Description\"\n" +
                     "beginTime: When the appt begins (24-hour time)\n" +
                     "endTime: When the appt ends (24-hour time)\n" +

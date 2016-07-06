@@ -29,8 +29,8 @@ public class Appointment extends AbstractAppointment {
     }
 
     /**
-     *  Sets the begin time of the appointment
-      * @param beginTime
+     *
+     * @param beginTime
      */
     public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;

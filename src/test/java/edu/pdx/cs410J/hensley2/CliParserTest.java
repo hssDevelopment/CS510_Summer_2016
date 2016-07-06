@@ -53,7 +53,7 @@ public class CliParserTest {
             fail("Should not reach this point - exception should be thrown for null");
         }
         catch(IllegalArgumentException e){
-            assertThat(e.getMessage(), containsString("Arguments cannot be null"));
+            assertThat(e.getMessage(), containsString("Missing command line arguments"));
         }
 
     }
@@ -226,7 +226,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowExceptionWhenMaxNumberOfArgsExceeded(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","one", "two", "three", "four", "five", "six", "seven"};
+        String [] args1 = {"-print", "-README","one", "two", "three", "four", "five", "six", "seven"};
         try{
             //SUT
             CliParser.build(args1).validateMaxNumberOfArgs();
@@ -244,7 +244,7 @@ public class CliParserTest {
     @Test
     public void shouldValidateArgsOfLengthSixSevenAndEight(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","one", "two", "three", "four", "five", "six"};
+        String [] args1 = {"-print", "-README","one", "two", "three", "four", "five", "six"};
         String [] args2 = {"-print", "one", "two", "three", "four", "five", "six"};
         String [] args3 = {"one", "two", "three", "four", "five", "six"};
 
@@ -275,7 +275,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWithInvalidBeginDate(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "Invalid Date", "14:25", "06/06/2016", "1:25"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "Invalid Date", "14:25", "06/06/2016", "1:25"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -293,7 +293,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWithInvalidBeginTime(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/05/2016", "Invalid Time", "06/06/2016", "1:25"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/05/2016", "Invalid Time", "06/06/2016", "1:25"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -310,7 +310,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWithInvalidEndDate(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/05/2016", "14:25", "Invalid Date", "1:25"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/05/2016", "14:25", "Invalid Date", "1:25"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -328,7 +328,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWithInvalidEndTime(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "Invalid Time"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "Invalid Time"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -345,7 +345,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenStartDateIsGreaterThanEndDate(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/07/2016", "14:25", "06/06/2016", "16:00"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/07/2016", "14:25", "06/06/2016", "16:00"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -361,7 +361,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenStartTimeEqualsEndTime(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/07/2016", "14:25", "06/07/2016", "14:25"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/07/2016", "14:25", "06/07/2016", "14:25"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -377,7 +377,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenStartTimeIsGreaterThanEndTime(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/07/2016", "14:25", "06/07/2016", "14:00"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/07/2016", "14:25", "06/07/2016", "14:00"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -393,7 +393,7 @@ public class CliParserTest {
     @Test
     public void shouldThrowIllegalArgumentExceptionWhenDescriptionIsEmpty(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "", "06/05/2016", "14:25", "06/06/2016", "14:10"};
+        String [] args1 = {"-print", "-README","Owner", "", "06/05/2016", "14:25", "06/06/2016", "14:10"};
         CliParser parser = CliParser.build(args1);
 
         try{
@@ -424,7 +424,7 @@ public class CliParserTest {
     @Test
     public void shouldParseValidArgumentsIntoMap(){
         //Set up the test
-        String [] args1 = {"-print", "-readme","Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
+        String [] args1 = {"-print", "-README","Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
         String [] args2 = {"Owner2", "Description2", "06/07/2016", "14:35", "06/08/2016", "14:15"};
 
         //SUT

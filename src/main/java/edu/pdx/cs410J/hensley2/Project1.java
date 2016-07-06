@@ -16,8 +16,10 @@ public class Project1 {
             CliParser parser = CliParser.build(args);
             parser.validateNonNullArgs();
 
+            //Check if README is in the first or second position, if so
+            //Exit the program
             if(args[0].equals(Project1Constants.README_OPTION) ||
-                    args[1].equals(Project1Constants.README_OPTION)){
+                    (args.length > 1 && args[1].equals(Project1Constants.README_OPTION))){
                 System.out.println(Project1Constants.README);
                 exit(0);
             }

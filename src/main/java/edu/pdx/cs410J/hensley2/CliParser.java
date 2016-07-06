@@ -64,7 +64,7 @@ public class CliParser {
 
     public static CliParser build(String[] args){
         if(args == null)
-            throw new IllegalArgumentException("Arguments cannot be null");
+            throw new IllegalArgumentException("Missing command line arguments");
         CliParser parser = new CliParser();
         parser.parsedArgs = new HashMap<>();
         parser.cliArgs = Arrays.asList(args);
