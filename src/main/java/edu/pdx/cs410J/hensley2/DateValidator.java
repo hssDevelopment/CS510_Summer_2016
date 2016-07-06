@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by hensleym on 6/28/16.
+ * Date validation utility for validating appointment start and end dates.
  * Using MkYong Example of using the simple date format to do the validation
  * http://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
  */
@@ -21,13 +21,13 @@ public class DateValidator {
     private DateValidator(){}
 
     /**
-     * Takes the two command line strings for date and time
+     * <p>Takes the two command line strings for date and time
      * and validates if they are in the correct format. Correct
      * format is month (either 1 or 2 digits)/d (either 1 or two digits)/yyyy hour(0-23):minute(0-59)
-     *
-     * @param monthDayYearString
-     * @param hourMinuteString
-     * @return
+     *</p>
+     * @param monthDayYearString the month/day/year string to validate
+     * @param hourMinuteString the hour:minute string to validate
+     * @return If the month/day/year string and hour:minute string make up a valid {@link Appointment} time
      */
     public static Boolean validateCliDateFormat(String monthDayYearString, String hourMinuteString){
         if(monthDayYearString == null || hourMinuteString == null){
@@ -54,11 +54,12 @@ public class DateValidator {
 
     /**
      * Validates that the start date is before the end date. Also validates the date strings are valid.
-     * @param beginMonthDayYearString
-     * @param beginHourMinuteString
-     * @param endMonthDayYearString
-     * @param endHourMinuteString
-     * @return
+     * @param beginMonthDayYearString the begin month/day/year string
+     * @param beginHourMinuteString the beginning hour:minute string
+     * @param endMonthDayYearString the end month/day/year string
+     * @param endHourMinuteString the end hour:minute string
+     * @return whether the date/time strings passed in are valid and whether the beginning time is less than
+     * the end time.
      */
     public static Boolean validateAppointmentTime(String beginMonthDayYearString, String beginHourMinuteString,
                                                   String endMonthDayYearString, String endHourMinuteString){

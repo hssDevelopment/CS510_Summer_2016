@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by hensleym on 6/26/16.
+ * @Link{AppointmentBook} class
  */
 public class AppointmentBook extends AbstractAppointmentBook {
 
@@ -25,20 +25,36 @@ public class AppointmentBook extends AbstractAppointmentBook {
         this.appointments = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return The owner's name of the appointment
+     */
     @Override
     public String getOwnerName() {
         return this.ownerName;
     }
 
+    /**
+     *
+     * @param ownerName The Name of the owner to set for this appointment book
+     */
     public void setOwnerName(String ownerName){
         this.ownerName = ownerName;
     }
 
+    /**
+     *
+     * @return All the appointments in this book
+     */
     @Override
     public Collection getAppointments() {
         return this.appointments;
     }
 
+    /**
+     *
+     * @param The new appointment to add
+     */
     @Override
     public void addAppointment(AbstractAppointment appt) {
         appointments.add(appt);

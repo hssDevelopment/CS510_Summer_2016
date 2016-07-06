@@ -1,7 +1,7 @@
 package edu.pdx.cs410J.hensley2;
 
 /**
- * Created by hensleym on 6/28/16.
+ * Constants class for Project 1.
  */
 public class Project1Constants {
 
