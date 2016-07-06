@@ -1,15 +1,16 @@
 package edu.pdx.cs410J.hensley2;
 
-import edu.pdx.cs410J.AbstractAppointment;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static javafx.scene.input.KeyCode.F;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import edu.pdx.cs410J.AbstractAppointment;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by hensleym on 7/1/16.
@@ -21,13 +22,13 @@ public class AppointmentBookTest {
     private ArrayList<AbstractAppointment> appointments;
 
     @Before
-    public void setUpTest(){
+    public void setUpTest() {
         appointmentBook = new AppointmentBook();
         appointments = new ArrayList<>();
     }
 
     @Test
-    public void shouldInitializeListToHoldAbstractAppointments() throws Exception{
+    public void shouldInitializeListToHoldAbstractAppointments() throws Exception {
         //Set up test
 
         //SUT
@@ -37,7 +38,7 @@ public class AppointmentBookTest {
     }
 
     @Test
-    public void testGetters() throws Exception{
+    public void testGetters() throws Exception {
         //Set up the test
         FieldUtils.writeField(appointmentBook, "appointments", appointments, true);
         FieldUtils.writeField(appointmentBook, "ownerName", OWNER_NAME, true);
@@ -50,7 +51,7 @@ public class AppointmentBookTest {
     }
 
     @Test
-    public void testSetters() throws Exception{
+    public void testSetters() throws Exception {
         //Set up test
 
         //SUT
@@ -61,7 +62,7 @@ public class AppointmentBookTest {
     }
 
     @Test
-    public void testAddAppointment() throws Exception{
+    public void testAddAppointment() throws Exception {
         //Set up test
         Appointment appointment1 = new Appointment();
         Appointment appointment2 = new Appointment();

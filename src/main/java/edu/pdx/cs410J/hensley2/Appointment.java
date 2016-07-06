@@ -3,7 +3,7 @@ package edu.pdx.cs410J.hensley2;
 import edu.pdx.cs410J.AbstractAppointment;
 
 /**
- * @Link{Appointment} class.
+ * {@link Appointment} class.
  */
 public class Appointment extends AbstractAppointment {
 
@@ -23,7 +23,6 @@ public class Appointment extends AbstractAppointment {
     private String description;
 
     /**
-     *
      * @return formatted Begin Time String for appointment
      */
     @Override
@@ -32,7 +31,6 @@ public class Appointment extends AbstractAppointment {
     }
 
     /**
-     *
      * @param beginTime The begin time to set
      */
     public void setBeginTime(String beginTime) {
@@ -41,7 +39,6 @@ public class Appointment extends AbstractAppointment {
 
 
     /**
-     *
      * @return formatted End Time String for appointment
      */
     @Override
@@ -49,22 +46,20 @@ public class Appointment extends AbstractAppointment {
         return this.endTime;
     }
 
-    public void setEndTime(String endTime){
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
 
     /**
-     *
      * Returns the description for the appointment
      */
     @Override
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
     /**
-     *
      * @param description Sets the appointment description
      */
     public void setDescription(String description) {

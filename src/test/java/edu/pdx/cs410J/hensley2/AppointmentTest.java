@@ -4,7 +4,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -17,12 +18,12 @@ public class AppointmentTest {
     private Appointment appointment;
 
     @Before
-    public void setUpTest(){
+    public void setUpTest() {
         appointment = new Appointment();
     }
 
     @Test
-    public void appointmentFieldsShouldBeInitializedToNull () throws Exception{
+    public void appointmentFieldsShouldBeInitializedToNull() throws Exception {
         //Set up test
 
         //SUT
@@ -34,7 +35,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void testAppointmentGetters() throws Exception{
+    public void testAppointmentGetters() throws Exception {
         //Set up test
         FieldUtils.writeField(appointment, "beginTime", START_TIME, true);
         FieldUtils.writeField(appointment, "endTime", END_TIME, true);
@@ -49,7 +50,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void testAppointmentSetters() throws Exception{
+    public void testAppointmentSetters() throws Exception {
         //Set up test
 
 

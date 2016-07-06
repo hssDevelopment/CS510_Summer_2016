@@ -7,13 +7,14 @@ public class Project1Constants {
 
     public static final String README_OPTION = "-README";
 
-    private Project1Constants(){}
+    private Project1Constants() {
+    }
 
     public static final String README =
             "usage: java -jar apptbook-<version>.jar [options] <args>\n" +
                     "args are (in this order):\n" +
                     "owner: The person whose owns the appt book - use double quotes to include first name and last name\n" +
-                    "example: \"Jeff Smith\"\n"+
+                    "example: \"Jeff Smith\"\n" +
                     "description: A description of the appointment - use double quotes for multi word description.\n" +
                     "*Note* Description Cannot be empty!\n" +
                     "example: \"This is a Description\"\n" +

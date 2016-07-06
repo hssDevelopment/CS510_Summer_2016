@@ -1,9 +1,8 @@
 package edu.pdx.cs410J.hensley2;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -12,19 +11,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class DateValidatorTest {
 
     @Test
-    public void shouldInvalidateNullValues(){
+    public void shouldInvalidateNullValues() {
         assertThat(DateValidator.validateCliDateFormat(null, null), is(false));
         assertThat(DateValidator.validateCliDateFormat("Some String", null), is(false));
         assertThat(DateValidator.validateCliDateFormat(null, "Some String"), is(false));
     }
 
     @Test
-    public void shouldNotValidateNonDateString(){
+    public void shouldNotValidateNonDateString() {
         assertThat(DateValidator.validateCliDateFormat("Some String", "Some String"), is(false));
     }
 
     @Test
-    public void shouldNotValidateDateStringInWrongFormat(){
+    public void shouldNotValidateDateStringInWrongFormat() {
         assertThat(DateValidator.validateCliDateFormat("July 4th, 2004", "4:00"), is(false));
         assertThat(DateValidator.validateCliDateFormat("06/07/2004", "1:00 pm"), is(false));
         assertThat(DateValidator.validateCliDateFormat("12-4-2010", "3:00"), is(false));
@@ -33,7 +32,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void shouldNotValidateDateStringWithInvalidTime(){
+    public void shouldNotValidateDateStringWithInvalidTime() {
         assertThat(DateValidator.validateCliDateFormat("6/34/2016", "1:00"), is(false));
         assertThat(DateValidator.validateCliDateFormat("13/20/2016", "1:00"), is(false));
         assertThat(DateValidator.validateCliDateFormat("0/0/2016", "1:00"), is(false));
@@ -46,7 +45,7 @@ public class DateValidatorTest {
 
 
     @Test
-    public void shouldValidateDateStringInCorrectFormat(){
+    public void shouldValidateDateStringInCorrectFormat() {
         //Test for 0 in the day
         assertThat(DateValidator.validateCliDateFormat("6/04/2016", "1:00"), is(true));
         assertThat(DateValidator.validateCliDateFormat("8/4/2000", "13:15"), is(true));
@@ -63,7 +62,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void shouldNotValidateDateStringWithAmOrPm(){
+    public void shouldNotValidateDateStringWithAmOrPm() {
         //Verify this date string is valid without the am or pm
         assertThat(DateValidator.validateCliDateFormat("04/04/2016", "1:00"), is(true));
 
@@ -76,10 +75,10 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void validateAppointmentTimeShouldValidateStartAndEndTimesAreValid(){
+    public void validateAppointmentTimeShouldValidateStartAndEndTimesAreValid() {
 
         assertThat(DateValidator.validateAppointmentTime("Invalid", "1:00", "04/04/2016", "1:00"),
-                    is(false));
+                is(false));
         assertThat(DateValidator.validateAppointmentTime("01/01/2016", "Invalid", "04/04/2016", "1:00"),
                 is(false));
         assertThat(DateValidator.validateAppointmentTime("01/01/2016", "1:00", "Invalid", "1:00"),
@@ -92,13 +91,13 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void shouldNotValidateAppointmentTimeIfStartDateIsEqualEndDate(){
+    public void shouldNotValidateAppointmentTimeIfStartDateIsEqualEndDate() {
         assertThat(DateValidator.validateAppointmentTime("04/04/2016", "1:00", "04/04/2016", "1:00"),
                 is(false));
     }
 
     @Test
-    public void shouldNotValidateAppointmentTimeIfStartTimeIsGreaterThanEndTime(){
+    public void shouldNotValidateAppointmentTimeIfStartTimeIsGreaterThanEndTime() {
         assertThat(DateValidator.validateAppointmentTime("04/04/2016", "5:00", "04/04/2016", "1:00"),
                 is(false));
         assertThat(DateValidator.validateAppointmentTime("04/04/2016", "12:00", "04/04/2016", "11:00"),
@@ -106,7 +105,7 @@ public class DateValidatorTest {
     }
 
     @Test
-    public void shouldNotValidateAppointmentTimeIfStartDateIsGreaterThanEndDate(){
+    public void shouldNotValidateAppointmentTimeIfStartDateIsGreaterThanEndDate() {
         assertThat(DateValidator.validateAppointmentTime("04/06/2016", "5:00", "04/04/2016", "6:00"),
                 is(false));
         assertThat(DateValidator.validateAppointmentTime("04/12/2016", "10:00", "04/04/2016", "11:00"),
@@ -115,7 +114,7 @@ public class DateValidatorTest {
 
     //Appointment time is valid if the start date is before the end date
     @Test
-    public void shouldValidateValidAppointmentTimes(){
+    public void shouldValidateValidAppointmentTimes() {
         assertThat(DateValidator.validateAppointmentTime("04/06/2016", "5:00", "04/08/2016", "6:00"),
                 is(true));
         assertThat(DateValidator.validateAppointmentTime("04/06/2015", "5:00", "04/08/2016", "6:00"),

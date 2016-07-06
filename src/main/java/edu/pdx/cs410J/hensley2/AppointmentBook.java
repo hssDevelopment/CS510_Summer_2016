@@ -1,13 +1,13 @@
 package edu.pdx.cs410J.hensley2;
 
-import edu.pdx.cs410J.AbstractAppointment;
-import edu.pdx.cs410J.AbstractAppointmentBook;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.pdx.cs410J.AbstractAppointment;
+import edu.pdx.cs410J.AbstractAppointmentBook;
+
 /**
- * @Link{AppointmentBook} class
+ * {@link AppointmentBook} class
  */
 public class AppointmentBook extends AbstractAppointmentBook {
 
@@ -19,14 +19,13 @@ public class AppointmentBook extends AbstractAppointmentBook {
     /**
      * Collection of appointment owned by this instance of AppointmentBook
      */
-    private ArrayList<AbstractAppointment> appointments;
+    private final ArrayList<AbstractAppointment> appointments;
 
-    AppointmentBook(){
+    AppointmentBook() {
         this.appointments = new ArrayList<>();
     }
 
     /**
-     *
      * @return The owner's name of the appointment
      */
     @Override
@@ -35,15 +34,13 @@ public class AppointmentBook extends AbstractAppointmentBook {
     }
 
     /**
-     *
      * @param ownerName The Name of the owner to set for this appointment book
      */
-    public void setOwnerName(String ownerName){
+    public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
 
     /**
-     *
      * @return All the appointments in this book
      */
     @Override
@@ -52,11 +49,10 @@ public class AppointmentBook extends AbstractAppointmentBook {
     }
 
     /**
-     *
-     * @param The new appointment to add
+     * @param appointment to be added to the appointment book.
      */
     @Override
-    public void addAppointment(AbstractAppointment appt) {
-        appointments.add(appt);
+    public void addAppointment(AbstractAppointment appointment) {
+        appointments.add(appointment);
     }
 }

@@ -1,7 +1,8 @@
 package edu.pdx.cs410J.hensley2;
 
-import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.Test;
+
+import edu.pdx.cs410J.InvokeMainTestCase;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -79,7 +80,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testEmptyDescription(){
+    public void testEmptyDescription() {
         MainMethodResult result = invokeMain("-print", "Owner", "", "06/05/2016", "14:25", "06/06/2016",
                 "14:10");
 
@@ -89,7 +90,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testInvalidStartDate(){
+    public void testInvalidStartDate() {
         MainMethodResult result = invokeMain("-print", "Owner", "Description", "Invalid Date",
                 "14:25", "06/06/2016", "14:10");
 
@@ -99,7 +100,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testInvalidStartTime(){
+    public void testInvalidStartTime() {
         MainMethodResult result = invokeMain("-print", "Owner", "Description", "05/05/2016",
                 "Invalid Time", "06/06/2016", "14:10");
 
@@ -109,7 +110,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testInvalidEndDate(){
+    public void testInvalidEndDate() {
         MainMethodResult result = invokeMain("-print", "Owner", "Description", "05/05/2016",
                 "12:30", "Invalid Date", "14:10");
 
@@ -119,7 +120,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testInvalidEndTime(){
+    public void testInvalidEndTime() {
         MainMethodResult result = invokeMain("-print", "Owner", "Description", "05/05/2016",
                 "12:30", "06/05/2016", "Invalid Time");
 
@@ -129,7 +130,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testStartDateBiggerThanEndDate(){
+    public void testStartDateBiggerThanEndDate() {
         MainMethodResult result = invokeMain("-print", "Owner", "Description", "05/10/2016",
                 "12:30", "05/05/2016", "13:30");
 
@@ -139,7 +140,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testStartTimeBiggerThanEndTime(){
+    public void testStartTimeBiggerThanEndTime() {
         MainMethodResult result = invokeMain("-print", "Owner", "Description", "05/10/2016",
                 "12:30", "05/10/2016", "11:30");
 
@@ -150,7 +151,7 @@ public class Project1IT extends InvokeMainTestCase {
 
 
     @Test
-    public void testStartTimeAndEndTimeAreEqual(){
+    public void testStartTimeAndEndTimeAreEqual() {
 
         MainMethodResult result = invokeMain("-print", "Some Owner", "Some Description", "05/05/2016",
                 "12:30", "05/05/2016", "12:30");
@@ -161,7 +162,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testValidOptionsWithoutPrint(){
+    public void testValidOptionsWithoutPrint() {
         MainMethodResult result = invokeMain("Some Owner", "Some Description", "05/05/2016",
                 "12:30", "05/05/2016", "16:30");
 
@@ -171,7 +172,7 @@ public class Project1IT extends InvokeMainTestCase {
     }
 
     @Test
-    public void testValidOptionsWithPrint(){
+    public void testValidOptionsWithPrint() {
         MainMethodResult result = invokeMain("-print", "Mike Hensley", "Get New Tires", "05/05/2016",
                 "12:30", "05/05/2016", "16:30");
 

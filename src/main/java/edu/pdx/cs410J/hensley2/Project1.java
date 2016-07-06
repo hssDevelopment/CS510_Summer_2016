@@ -1,7 +1,5 @@
 package edu.pdx.cs410J.hensley2;
 
-import edu.pdx.cs410J.AbstractAppointmentBook;
-
 import java.util.Map;
 
 import static java.lang.System.exit;
@@ -12,14 +10,14 @@ import static java.lang.System.exit;
 public class Project1 {
 
     public static void main(String[] args) {
-        try{
+        try {
             CliParser parser = CliParser.build(args);
             parser.validateNonNullArgs();
 
             //Check if README is in the first or second position, if so
             //Exit the program
-            if(args[0].equals(Project1Constants.README_OPTION) ||
-                    (args.length > 1 && args[1].equals(Project1Constants.README_OPTION))){
+            if (args[0].equals(Project1Constants.README_OPTION) ||
+                    (args.length > 1 && args[1].equals(Project1Constants.README_OPTION))) {
                 System.out.println(Project1Constants.README);
                 exit(0);
             }
@@ -39,13 +37,12 @@ public class Project1 {
 
             ab.addAppointment(appt);
 
-            if(parsedArgs.get(CliParser.PRINT_FLAG) != null){
+            if (parsedArgs.get(CliParser.PRINT_FLAG) != null) {
                 System.out.println(appt.toString());
             }
 
             exit(0);
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             exit(1);
         }
