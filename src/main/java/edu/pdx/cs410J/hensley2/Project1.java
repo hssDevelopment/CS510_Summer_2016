@@ -2,6 +2,8 @@ package edu.pdx.cs410J.hensley2;
 
 import java.util.Map;
 
+import edu.pdx.cs410J.AbstractAppointmentBook;
+
 import static java.lang.System.exit;
 
 /**
@@ -14,10 +16,11 @@ public class Project1 {
             CliParser parser = CliParser.build(args);
             parser.validateNonNullArgs();
 
-            //Check if README is in the first or second position, if so
+            //Check if README is in the first, second, or third position, if so
             //Exit the program
             if (args[0].equals(Project1Constants.README_OPTION) ||
-                    (args.length > 1 && args[1].equals(Project1Constants.README_OPTION))) {
+                    (args.length > 1 && args[1].equals(Project1Constants.README_OPTION)) ||
+                    (args.length > 2 && args[2].equals(Project1Constants.README_OPTION))) {
                 System.out.println(Project1Constants.README);
                 exit(0);
             }
@@ -27,7 +30,9 @@ public class Project1 {
                     .parseOptions()
                     .parseArgs();
 
-            AppointmentBook ab = new AppointmentBook();
+            AppointmentBook ab = AppointmentBookFactory.getInstance()
+                    .buildAppointmentBook(parsedArgs);
+
             ab.setOwnerName(parsedArgs.get(CliParser.OWNER_KEY));
 
             Appointment appt = new Appointment();

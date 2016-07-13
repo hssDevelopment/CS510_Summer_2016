@@ -1,0 +1,27 @@
+Plan of Attack for project 2:
+
+	For this project I will need to implement two classes from an interface, add a new
+option to the command line, and also handle any sort of errors that would come from the
+new error conditions associated with a file: The text file is malformatted and the owner
+name given on the command line is different than the one found in the text file. For 
+starters, I will add an option to parse the -textFile from file. My CliParser class has
+gotten pretty big already, so I will plan to split my parser class into three different
+classes that do the parsing: A validation class that verifies arguments are all correct,
+an options parser class that parses the options, and a args parser that will parse the
+arguments. I will use my CliParser as a wrapper class to these three classes so I don't
+have a bloated parser class. The CliParser and its dependencies will be in charge of 
+parsing the -textFile option and exiting if the owner name is different than the one
+found in the text file. 
+	For my Instantiation of the AppointmentBook, I am going to wrap the AppointmentBook
+into a factory class that will build an appointment book from the command line. That way
+I can create a new one if the option to read from text file is present or if it is not,
+I will build a new appointment book. The TextParser class will be wrapped by the 
+Appointment Book factory class and will be used to create the appointment book from file.
+It will throw an exception if the text file is malformatted and let the calling class
+handle the exception. 
+	On exit, the TextDumper class will take the map entry for the -textFile option
+from the parsed arguments Map and appointment book, and decide if it needs to write to 
+text file or not. It will take the Appointment Book if the flag is set and write it to 
+file. Should this operation fail, It will throw the I/O exception and let the caller
+deal with it. 
+

@@ -424,4 +424,16 @@ public class CliParserTest {
         assertThat(parsed.get(CliParser.END_TIME_KEY), is("06/08/2016 14:15"));
     }
 
+    @Test
+    public void shouldValidateTextFlag(){
+        String[] args1 = {"-print", "-textFile", "test.txt", "-README", "Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
+        String[] args2 = {"-print", "-README", "-textFile", "test.txt", "Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
+        String[] args3 = {"-textFile", "test.txt", "Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
+
+        CliParser.build(args1).validateAll();
+        CliParser.build(args2).validateAll();
+        CliParser.build(args3).validateAll();
+
+    }
+
 }

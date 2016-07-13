@@ -1,14 +1,19 @@
 package edu.pdx.cs410J.hensley2;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.pdx.cs410J.AbstractAppointmentBook;
+
 /**
- * Date validation utility for validating appointment start and end dates. Using MkYong Example of
- * using the simple date format to do the validation http://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
+ * validation utility for project.
+ * Using MkYong Example of using the simple date format to do the validation
+ * http://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
  */
-public class DateValidator {
+public class Validator {
 
     private static final String validDateFormat = "M/d/yyyy H:m";
     private static final SimpleDateFormat sdf = new SimpleDateFormat(validDateFormat);
@@ -17,7 +22,7 @@ public class DateValidator {
         sdf.setLenient(false);
     }
 
-    private DateValidator() {
+    private Validator() {
     }
 
     /**
@@ -65,8 +70,8 @@ public class DateValidator {
      */
     public static Boolean validateAppointmentTime(String beginMonthDayYearString, String beginHourMinuteString,
                                                   String endMonthDayYearString, String endHourMinuteString) {
-        if (!DateValidator.validateCliDateFormat(beginMonthDayYearString, beginHourMinuteString) ||
-                !DateValidator.validateCliDateFormat(endMonthDayYearString, endHourMinuteString)) {
+        if (!Validator.validateCliDateFormat(beginMonthDayYearString, beginHourMinuteString) ||
+                !Validator.validateCliDateFormat(endMonthDayYearString, endHourMinuteString)) {
             return false;
         }
 
@@ -80,6 +85,16 @@ public class DateValidator {
             return false;
         }
 
+    }
+
+    /**
+     *
+     * @param ownerFromCli
+     * @param book
+     * @return Whether the string passed in matches the name in the appointment book from file
+     */
+    public static Boolean validateOwnerName(String ownerFromCli, AbstractAppointmentBook book){
+        return ownerFromCli.equals(book.getOwnerName());
     }
 
 }

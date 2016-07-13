@@ -6,6 +6,7 @@ package edu.pdx.cs410J.hensley2;
 public class Project1Constants {
 
     public static final String README_OPTION = "-README";
+    public static final String TEXT_FILE_FLAG = "-textFile";
 
     private Project1Constants() {
     }
@@ -23,6 +24,11 @@ public class Project1Constants {
                     "Date and time should be in the format: mm/dd/yyyy hh:mm (Do not use quotes for date/time)\n\n\n" +
                     "options are (options may appear in any order):\n" +
                     "-print Prints a description of the new appointment\n" +
-                    "-README Prints a README for this project and exits\n";
+                    "-textFile file Where to read/write the appointment book\n" +
+                    "-README Prints a README for this project and exits\n\n\n" +
+                    "Text File Format: \n" +
+                    "owner:<name of owner>\n" +
+                    "description,begin time,end time\n" +
+                    "**Note** owner name must match command line name\n";
 
 }

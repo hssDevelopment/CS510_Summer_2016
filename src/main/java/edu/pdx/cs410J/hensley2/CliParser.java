@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static edu.pdx.cs410J.hensley2.Project1Constants.TEXT_FILE_FLAG;
+
 
 /**
  * <p> The @Link{CliParser} for parsing command line arguments and options. Can validate various
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 public class CliParser {
 
     public static final String PRINT_FLAG = "-print";
+    public static final String FILE_KEY = "file";
+    public static final String EMPTY_KEY = "";
     public static final String OWNER_KEY = "owner";
     public static final String DESCRIPTION_KEY = "description";
     public static final String BEGIN_TIME_KEY = "beginTime";
@@ -32,14 +36,18 @@ public class CliParser {
     /**
      * Valid command line options
      */
-    private static final List<String> VALID_OPTIONS = Arrays.asList("-print", "-README");
+    private static final List<String> VALID_OPTIONS = Arrays.asList("-print", "-README", "-textFile");
 
     /**
      * Number of expected args - the start date and end date take up 2 arguments so there should be
-     * 6 total in this order: owner, description, startTime, endTime
+     * 6 total in this order: owner, description, startTime, endTime plus possible text file name
      */
-    private static final Integer EXPECT_ARG_SIZE = 6;
+    private static final Integer EXPECT_ARG_SIZE = 7;
 
+    /**
+     * Number of possible option arguments, -print, -README, -textFile, (textfile path)
+     */
+    private static final Integer EXPECTED_OPTIONS_SIZE = 4;
 
     /**
      * Max number of command line arguments, including options
@@ -93,11 +101,12 @@ public class CliParser {
 
     /**
      * Validates that there are the correct number of arguments passed in. Will throw a {@link
-     * IllegalArgumentException} if the arguments are invalid.
+     * IllegalArgumentException} if the arguments are invalid. There should be at least 6
+     * but no more than 7 arguments
      */
     public void validateArguments() {
         /**
-         * Validate there are 6 args
+         * Validate there are 6 args 
          */
 
         List<String> args = cliArgs.stream()
@@ -115,8 +124,8 @@ public class CliParser {
     /**
      * Validates options passed in are valid. Will throw a {@link IllegalArgumentException} if the
      * options are invalid. Validates that options (all entries that start with a -) are valid
-     * options. A valid option should be in position 1 or position 2 and be either -print or
-     * -README
+     * options. A valid option should be in position 1 or position 2 and be either -print, -textFile,
+     * or -README
      */
     public void validateOptions() {
 
@@ -126,7 +135,7 @@ public class CliParser {
                     if (!VALID_OPTIONS.contains(option)) {
                         throw new IllegalArgumentException("Invalid Option! Please see -README for valid options");
                     }
-                    if (cliArgs.indexOf(option) > 1) {
+                    if (cliArgs.indexOf(option) > EXPECTED_OPTIONS_SIZE) {
                         throw new IllegalArgumentException("Option at Invalid Position. Option must come before args");
                     }
                 });
@@ -168,6 +177,13 @@ public class CliParser {
             parsedArgs.put("-print", "true");
         }
 
+        //Check the print option - get the text file (text file flag index + 1)
+        //out of the cli args and put it in the parsed args map else
+        //put empty delimiter in map
+        if (this.cliArgs.contains(Project1Constants.TEXT_FILE_FLAG)){
+            parsedArgs.put(FILE_KEY, cliArgs.get(cliArgs.indexOf(TEXT_FILE_FLAG) + 1));
+        }
+
         return this;
     }
 
@@ -182,13 +198,13 @@ public class CliParser {
                 .filter(s -> !(s.startsWith(OPTIONS_DELIMINATOR)))
                 .collect(Collectors.toList());
         //Validate the dates
-        if (!DateValidator.validateCliDateFormat(args.get(BEGIN_TIME_DATE_POSITION), args.get(BEGIN_TIME_TIME_POSITION)) ||
-                !DateValidator.validateCliDateFormat(args.get(END_TIME_DATE_POSITION), args.get(END_TIME_TIME_POSITION))) {
+        if (!Validator.validateCliDateFormat(args.get(BEGIN_TIME_DATE_POSITION), args.get(BEGIN_TIME_TIME_POSITION)) ||
+                !Validator.validateCliDateFormat(args.get(END_TIME_DATE_POSITION), args.get(END_TIME_TIME_POSITION))) {
             throw new IllegalArgumentException("Invalid Date Format - Date Format must be dd/mm/yyyy hh:mm");
         }
 
         //Validate start appointment time less than end appointment time
-        if (!DateValidator.validateAppointmentTime(args.get(BEGIN_TIME_DATE_POSITION), args.get(BEGIN_TIME_TIME_POSITION),
+        if (!Validator.validateAppointmentTime(args.get(BEGIN_TIME_DATE_POSITION), args.get(BEGIN_TIME_TIME_POSITION),
                 args.get(END_TIME_DATE_POSITION), args.get(END_TIME_TIME_POSITION))) {
             throw new IllegalArgumentException("Appointment Start Time must be less than End Time");
         }
@@ -197,6 +213,7 @@ public class CliParser {
         if (args.get(DESCRIPTION_POSITION).isEmpty()) {
             throw new IllegalArgumentException("Description cannot be empty!");
         }
+
 
         parsedArgs.put(OWNER_KEY, args.get(OWNER_POSITION));
         parsedArgs.put(DESCRIPTION_KEY, args.get(DESCRIPTION_POSITION));
