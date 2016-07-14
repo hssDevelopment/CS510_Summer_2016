@@ -9,15 +9,15 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Integration tests for the {@link Project1} main class.
+ * Integration tests for the {@link Project2} main class.
  */
-public class Project1IT extends InvokeMainTestCase {
+public class Project2IT extends InvokeMainTestCase {
 
     /**
-     * Invokes the main method of {@link Project1} with the given arguments.
+     * Invokes the main method of {@link Project2} with the given arguments.
      */
     private MainMethodResult invokeMain(String... args) {
-        return invokeMain(Project1.class, args);
+        return invokeMain(Project2.class, args);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Project1IT extends InvokeMainTestCase {
     public void testReadmeCommandLineArgument() {
         MainMethodResult result = invokeMain("-README", "-print", "Mike Hensley", "A Description",
                 "01/01/2016", "04:00", "01/01/2016", "05:00");
-        assertThat(result.getOut(), containsString(Project1Constants.README));
+        assertThat(result.getOut(), containsString(Project2Constants.README));
         assertThat(result.getExitCode(), equalTo(0));
         assertThat(result.getErr(), equalTo(""));
 
@@ -55,18 +55,19 @@ public class Project1IT extends InvokeMainTestCase {
         MainMethodResult result = invokeMain("-print", "-README", "Mike Hensley", "A Description",
                 "01/01/2016", "04:00", "01/01/2016", "05:00");
         System.out.println(result.getErr());
-        assertThat(result.getOut(), containsString(Project1Constants.README));
+        assertThat(result.getOut(), containsString(Project2Constants.README));
         assertThat(result.getExitCode(), equalTo(0));
         assertThat(result.getErr(), equalTo(""));
     }
 
     @Test
     public void testTooManyCommandLineOptions() {
-        MainMethodResult result = invokeMain("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten");
+        MainMethodResult result = invokeMain("one", "two", "three", "four", "five", "six", "seven", "eight",
+                "nine", "ten", "eleven");
         assertThat(result.getExitCode(), equalTo(1));
         assertThat(result.getErr(), containsString("Too many command line arguments"));
-        assertThat(result.getErr(), containsString("Number Entered: 10"));
-        assertThat(result.getErr(), containsString("Number Expected: " + CliParser.MAX_COMMAND_LINE_ARGS));
+        assertThat(result.getErr(), containsString("Number Entered: 11"));
+        assertThat(result.getErr(), containsString("Max Number Expected: " + CliParser.MAX_COMMAND_LINE_ARGS));
     }
 
     @Test

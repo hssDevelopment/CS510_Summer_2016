@@ -7,15 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.swing.text.html.parser.Parser;
-
-import edu.pdx.cs410J.AbstractAppointment;
-import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.AppointmentBookParser;
 import edu.pdx.cs410J.ParserException;
 
 /**
- * Created by hensleym on 7/6/16.
+ * A Text Parser class that parses an Appointment Book from file.
+ *
  */
 public class TextParser implements AppointmentBookParser {
 
@@ -24,26 +21,37 @@ public class TextParser implements AppointmentBookParser {
      */
     private String filePath;
 
-    private static LineReader lineReader = new LineReader();
+    private static final LineReader lineReader = new LineReader();
 
-    public void setFilePath(String filePath){
+    /**
+     * Sets the file path
+     * @param filePath the file path of the file
+     */
+    public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Parses an appointment book from a given file path.
+     * @return an appointment book from file
+     * book
+     * @throws ParserException
+     */
+    @SuppressWarnings("AccessStaticViaInstance")
     @Override
     public AppointmentBook parse() throws ParserException {
-       AppointmentBook appt = new AppointmentBook();
-        if (filePath == null){
+        AppointmentBook appt = new AppointmentBook();
+        if (filePath == null) {
             throw new ParserException("The File Path is empty!");
         }
 
-        try{
+        try {
             Stream<String> stream = Files.lines(Paths.get(filePath));
             List<String> lines = stream.collect(Collectors.toList());
-            for(String line : lines){
-                if(line.contains(lineReader.OWNER_MARKER))
+            for (String line : lines) {
+                if (line.contains(LineReader.OWNER_MARKER))
                     appt.setOwnerName(lineReader.readOwner(line));
-                else{
+                else {
                     appt.addAppointment(lineReader.readAppointment(line));
                 }
             }

@@ -3,13 +3,12 @@ package edu.pdx.cs410J.hensley2;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.sun.tools.doclint.Entity.not;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
-
 import edu.pdx.cs410J.AbstractAppointment;
 import edu.pdx.cs410J.ParserException;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by hensleym on 7/6/16.
@@ -23,18 +22,18 @@ public class LineReaderTest {
         lineReader = new LineReader();
     }
 
-    @Test(expected=ParserException.class)
-    public void shouldThrowParserExceptionWhenLineIsNull() throws Exception{
+    @Test(expected = ParserException.class)
+    public void shouldThrowParserExceptionWhenLineIsNull() throws Exception {
         lineReader.readAppointment(null);
     }
 
-    @Test(expected=ParserException.class)
-    public void shouldThrowParserExceptionWhenLineIsEmpty() throws Exception{
+    @Test(expected = ParserException.class)
+    public void shouldThrowParserExceptionWhenLineIsEmpty() throws Exception {
         lineReader.readAppointment("");
     }
 
-    @Test(expected=ParserException.class)
-    public void shouldThrowParserExceptionWhenLineHasTooManyCommas() throws Exception{
+    @Test(expected = ParserException.class)
+    public void shouldThrowParserExceptionWhenLineHasTooManyCommas() throws Exception {
         lineReader.readAppointment("Description,1,1,1");
     }
 

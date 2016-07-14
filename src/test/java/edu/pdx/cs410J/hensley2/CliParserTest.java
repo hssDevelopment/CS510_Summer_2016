@@ -86,7 +86,7 @@ public class CliParserTest {
         } catch (IllegalArgumentException e) {
             //Verify
             assertThat(e.getMessage(), containsString("Invalid number of arguments!"));
-            assertThat(e.getMessage(), containsString("Number Expected: " + 6));
+            assertThat(e.getMessage(), containsString("Number Expected: " + 7));
             assertThat(e.getMessage(), containsString("Number Received: " + 3));
         }
     }
@@ -104,15 +104,15 @@ public class CliParserTest {
         } catch (IllegalArgumentException e) {
             //Verify
             assertThat(e.getMessage(), containsString("Invalid number of arguments!"));
-            assertThat(e.getMessage(), containsString("Number Expected: " + 6));
+            assertThat(e.getMessage(), containsString("Number Expected: " + 7));
             assertThat(e.getMessage(), containsString("Number Received: " + 8));
         }
     }
 
     @Test
-    public void shouldNotThrowIllegalArgumentExceptionWithSixArguments() {
+    public void shouldNotThrowIllegalArgumentExceptionWithSevenArguments() {
         //Set up the test
-        String[] args = {"one", "two", "three", "four", "five", "six"};
+        String[] args = {"one", "two", "three", "four", "five", "six", "seven"};
         CliParser parser = CliParser.build(args);
 
         //SUT
@@ -154,13 +154,13 @@ public class CliParserTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenValidOptionsAreNotInFirstOrSecondPosition() {
+    public void shouldThrowExceptionWhenOptionIndexIsGreaterThanFour() {
         //Set up test
         String expectedMessage = "Option at Invalid Position. Option must come before args";
-        String[] args1 = {"one", "two", "three", "four", "-print"};
-        String[] args2 = {"one", "two", "-print", "three", "four"};
-        String[] args3 = {"one", "two", "three", "four", "-README"};
-        String[] args4 = {"one", "two", "-README", "three", "four"};
+        String[] args1 = {"one", "two", "three", "four", "five", "six", "-textFile"};
+        String[] args2 = {"one", "two", "three", "four", "-textFile"};
+        String[] args3 = {"one", "two", "three", "four", "five", "six", "-textFile"};
+        String[] args4 = {"one", "two", "three", "four", "five", "six", "seven", "-textFile"};
 
         //SUT
         try {
@@ -214,7 +214,8 @@ public class CliParserTest {
     @Test
     public void shouldThrowExceptionWhenMaxNumberOfArgsExceeded() {
         //Set up the test
-        String[] args1 = {"-print", "-README", "one", "two", "three", "four", "five", "six", "seven"};
+        String[] args1 = {"-print", "-textFile", "test.txt", "-README", "one", "two", "three",
+                "four", "five", "six", "seven"};
         try {
             //SUT
             CliParser.build(args1).validateMaxNumberOfArgs();
@@ -223,8 +224,8 @@ public class CliParserTest {
 
             //Verify
             assertThat(e.getMessage(), containsString("Too many command line arguments."));
-            assertThat(e.getMessage(), containsString("Number Entered: " + 9));
-            assertThat(e.getMessage(), containsString("Max Number Expected: " + 8));
+            assertThat(e.getMessage(), containsString("Number Entered: " + 11));
+            assertThat(e.getMessage(), containsString("Max Number Expected: " + 10));
         }
     }
 
@@ -425,7 +426,7 @@ public class CliParserTest {
     }
 
     @Test
-    public void shouldValidateTextFlag(){
+    public void shouldValidateTextFlag() {
         String[] args1 = {"-print", "-textFile", "test.txt", "-README", "Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
         String[] args2 = {"-print", "-README", "-textFile", "test.txt", "Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};
         String[] args3 = {"-textFile", "test.txt", "Owner", "Description", "06/05/2016", "14:25", "06/06/2016", "14:10"};

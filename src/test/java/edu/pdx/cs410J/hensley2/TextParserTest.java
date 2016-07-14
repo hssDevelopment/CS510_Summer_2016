@@ -8,7 +8,8 @@ import edu.pdx.cs410J.AbstractAppointmentBook;
 import edu.pdx.cs410J.ParserException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Created by hensleym on 7/10/16.
@@ -18,7 +19,7 @@ public class TextParserTest {
     TextParser parser;
 
     @Before
-    public void setUpTest(){
+    public void setUpTest() {
         parser = new TextParser();
     }
 
@@ -35,7 +36,7 @@ public class TextParserTest {
     }
 
     @Test
-    public void testParserWithNonExistentPath() throws Exception{
+    public void testParserWithNonExistentPath() throws Exception {
         //Set up test
         parser.setFilePath("InvalidPath");
 
@@ -47,7 +48,7 @@ public class TextParserTest {
     }
 
     @Test(expected = ParserException.class)
-    public void testParserWithNullFilePath() throws Exception{
+    public void testParserWithNullFilePath() throws Exception {
         //Set up test
         parser.setFilePath(null);
 

@@ -1,14 +1,14 @@
 package edu.pdx.cs410J.hensley2;
 
 /**
- * Constants class for Project 1.
+ * Constants class for Project 2.
  */
-public class Project1Constants {
+public class Project2Constants {
 
     public static final String README_OPTION = "-README";
     public static final String TEXT_FILE_FLAG = "-textFile";
 
-    private Project1Constants() {
+    private Project2Constants() {
     }
 
     public static final String README =

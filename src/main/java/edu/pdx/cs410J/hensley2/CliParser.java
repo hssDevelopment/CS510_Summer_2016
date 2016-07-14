@@ -1,12 +1,13 @@
 package edu.pdx.cs410J.hensley2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static edu.pdx.cs410J.hensley2.Project1Constants.TEXT_FILE_FLAG;
+import static edu.pdx.cs410J.hensley2.Project2Constants.TEXT_FILE_FLAG;
 
 
 /**
@@ -18,7 +19,6 @@ public class CliParser {
 
     public static final String PRINT_FLAG = "-print";
     public static final String FILE_KEY = "file";
-    public static final String EMPTY_KEY = "";
     public static final String OWNER_KEY = "owner";
     public static final String DESCRIPTION_KEY = "description";
     public static final String BEGIN_TIME_KEY = "beginTime";
@@ -42,7 +42,13 @@ public class CliParser {
      * Number of expected args - the start date and end date take up 2 arguments so there should be
      * 6 total in this order: owner, description, startTime, endTime plus possible text file name
      */
-    private static final Integer EXPECT_ARG_SIZE = 7;
+    private static final Integer MAX_EXPECTED_ARG_SIZE = 7;
+
+    /**
+     * Number of expected args that are not options - owner, description, startTime, endTime (Start
+     * time and end time will be two arguments each
+     */
+    private static final Integer MAX_EXPECTED_ARGS_EXCLUDING_OPTIONS = 6;
 
     /**
      * Number of possible option arguments, -print, -README, -textFile, (textfile path)
@@ -52,7 +58,7 @@ public class CliParser {
     /**
      * Max number of command line arguments, including options
      */
-    protected static final Integer MAX_COMMAND_LINE_ARGS = EXPECT_ARG_SIZE + VALID_OPTIONS.size();
+    protected static final Integer MAX_COMMAND_LINE_ARGS = MAX_EXPECTED_ARG_SIZE + VALID_OPTIONS.size();
 
     /**
      * Command line arguments as a list
@@ -101,22 +107,22 @@ public class CliParser {
 
     /**
      * Validates that there are the correct number of arguments passed in. Will throw a {@link
-     * IllegalArgumentException} if the arguments are invalid. There should be at least 6
-     * but no more than 7 arguments
+     * IllegalArgumentException} if the arguments are invalid. There should be 6 or 7 options after
+     * the options have been passed in.
      */
     public void validateArguments() {
         /**
-         * Validate there are 6 args 
+         * Validate there are 6 or 7 args
          */
 
         List<String> args = cliArgs.stream()
                 .filter(s -> !(s.startsWith(OPTIONS_DELIMINATOR)))
                 .collect(Collectors.toList());
 
-        if (args.size() != EXPECT_ARG_SIZE) {
-
+        if (args.size() != MAX_EXPECTED_ARG_SIZE &&
+                args.size() != MAX_EXPECTED_ARGS_EXCLUDING_OPTIONS) {
             throw new IllegalArgumentException("Invalid number of arguments!\n" +
-                    "Number Expected: " + Integer.toString(EXPECT_ARG_SIZE) + "\n" +
+                    "Max Number Expected: " + Integer.toString(MAX_EXPECTED_ARG_SIZE) + "\n" +
                     "Number Received: " + Integer.toString(args.size()));
         }
     }
@@ -124,8 +130,8 @@ public class CliParser {
     /**
      * Validates options passed in are valid. Will throw a {@link IllegalArgumentException} if the
      * options are invalid. Validates that options (all entries that start with a -) are valid
-     * options. A valid option should be in position 1 or position 2 and be either -print, -textFile,
-     * or -README
+     * options. A valid option should be in position 1 or position 2 and be either -print,
+     * -textFile, or -README
      */
     public void validateOptions() {
 
@@ -135,7 +141,7 @@ public class CliParser {
                     if (!VALID_OPTIONS.contains(option)) {
                         throw new IllegalArgumentException("Invalid Option! Please see -README for valid options");
                     }
-                    if (cliArgs.indexOf(option) > EXPECTED_OPTIONS_SIZE) {
+                    if (cliArgs.indexOf(option) > EXPECTED_OPTIONS_SIZE - 1) {
                         throw new IllegalArgumentException("Option at Invalid Position. Option must come before args");
                     }
                 });
@@ -180,7 +186,7 @@ public class CliParser {
         //Check the print option - get the text file (text file flag index + 1)
         //out of the cli args and put it in the parsed args map else
         //put empty delimiter in map
-        if (this.cliArgs.contains(Project1Constants.TEXT_FILE_FLAG)){
+        if (this.cliArgs.contains(Project2Constants.TEXT_FILE_FLAG)) {
             parsedArgs.put(FILE_KEY, cliArgs.get(cliArgs.indexOf(TEXT_FILE_FLAG) + 1));
         }
 
@@ -194,7 +200,18 @@ public class CliParser {
      * @return {@link Map}of the parsed arguments arguments.
      */
     public Map<String, String> parseArgs() {
-        List<String> args = cliArgs.stream()
+
+        //Remove the text file path if it exists from the CLI Args
+        List<String> argsToParse;
+        if(cliArgs.contains(Project2Constants.TEXT_FILE_FLAG)){
+            argsToParse = new ArrayList<>(cliArgs);
+            argsToParse.remove(cliArgs.indexOf(Project2Constants.TEXT_FILE_FLAG) + 1);
+        }
+        else{
+            argsToParse = cliArgs;
+        }
+
+        List<String> args = argsToParse.stream()
                 .filter(s -> !(s.startsWith(OPTIONS_DELIMINATOR)))
                 .collect(Collectors.toList());
         //Validate the dates

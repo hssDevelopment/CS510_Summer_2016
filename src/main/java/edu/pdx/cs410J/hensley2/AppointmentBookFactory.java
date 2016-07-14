@@ -1,7 +1,6 @@
 package edu.pdx.cs410J.hensley2;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.File;
 import java.util.Map;
 
 import edu.pdx.cs410J.AbstractAppointmentBook;
@@ -9,8 +8,8 @@ import edu.pdx.cs410J.ParserException;
 
 
 /**
- * This class builds an appointment book factory from file. If no file marker exists,
- * then it will return a new appointment book.
+ * This class builds an appointment book factory from file. If no file marker exists, then it will
+ * return a new appointment book.
  */
 public class AppointmentBookFactory {
 
@@ -18,14 +17,16 @@ public class AppointmentBookFactory {
 
     private TextParser parser;
 
-    private AppointmentBookFactory(){}
+    private AppointmentBookFactory() {
+    }
 
     /**
      * Returns the appointment book factory instance for this project.
+     *
      * @return static instance of Appointment Book Factory
      */
-    public static AppointmentBookFactory getInstance(){
-        if(factory == null){
+    public static AppointmentBookFactory getInstance() {
+        if (factory == null) {
             factory = new AppointmentBookFactory();
             factory.parser = new TextParser();
         }
@@ -33,32 +34,36 @@ public class AppointmentBookFactory {
     }
 
     /**
-     *
      * @param parsedArgs from the command line.
-     * @return {@link AbstractAppointmentBook} instance. This method will check if there is
-     * a file path. If null is passed in, a new AppointmentBook will be created. If an empty
-     * String is passed in, it will also create a new AppointmentBook. Otherwise, it will
-     * take the String, read the file, and build the appointment book.
-     *
+     * @return {@link AbstractAppointmentBook} instance. This method will check if there is a file
+     * path. If null is passed in, a new AppointmentBook will be created. If an empty String is
+     * passed in, it will also create a new AppointmentBook. Otherwise, it will take the String,
+     * read the file, and build the appointment book.
      */
     public AppointmentBook buildAppointmentBook(Map<String, String> parsedArgs)
-            throws IllegalArgumentException{
+            throws IllegalArgumentException {
         String filePath = parsedArgs.get(CliParser.FILE_KEY);
-        if (filePath != null && !filePath.isEmpty()){
+        if(filePath == null){
+            return new AppointmentBook();
+        }
+
+        Boolean validFile = new File(filePath).exists();
+
+        if (validFile) {
             try {
                 TextParser parser = factory.parser;
                 parser.setFilePath(filePath);
                 AppointmentBook book = parser.parse();
-                if(!book.getOwnerName().equals(parsedArgs.get(CliParser.OWNER_KEY)))
+                if (!book.getOwnerName().equals(parsedArgs.get(CliParser.OWNER_KEY)))
                     throw new IllegalArgumentException(("Parser Exception! Owner name mismatch.\n"
-                    + "Owner name in file is different then owner name on command line"));
+                            + "Owner name in file is different then owner name on command line.\n" +
+                              "Name From File: " + book.getOwnerName() + "\n" +
+                              "Name From CLI: " + parsedArgs.get(CliParser.OWNER_KEY)));
                 return book;
             } catch (ParserException e) {
-                throw new IllegalArgumentException("Parser Exception!" + "\n" + e.toString());
+                throw new IllegalArgumentException("Parser Exception!" + "\n" + e.getMessage());
             }
-        }
-
-        else{
+        } else {
             return new AppointmentBook();
         }
     }
